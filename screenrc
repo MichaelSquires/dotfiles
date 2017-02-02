@@ -1,0 +1,12 @@
+escape ``
+vbell off
+autodetach on
+startup_message off
+shelltitle '$ |'
+defscrollback 20000
+termcapinfo xterm* ti@:te@
+
+caption string "%?%F%{= Bk}%? %C%A %D %d-%m-%Y %{= kB} %t%= %?%F%{= Bk}%:%{= wk}%? %n "
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}
+%m/%d %{W}%c %{g}]'
