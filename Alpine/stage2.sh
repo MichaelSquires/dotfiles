@@ -1,10 +1,8 @@
 #!/bin/sh
 
-cp etc/pam.d/usermod /etc/pam.d/usermod
+USERNAME="blackout"
 
-adduser blackout
-usermod -aG docker blackout
-usermod -aG wheel blackout
-usermod -s /bin/bash blackout
-
-cp etc/suoders.d/wheel /etc/sudoers.d/wheel
+adduser ${USERNAME}
+usermod -aG docker ${USERNAME}
+usermod -aG wheel ${USERNAME}
+usermod -s /bin/bash ${USERNAME}
