@@ -8,3 +8,9 @@ cp -Rf ${CONFIGPATH}/Alpine/etc /
 
 /bin/sh ${CONFIGPATH}/Alpine/stage1.sh
 /bin/bash ${CONFIGPATH}/Alpine/stage2.sh
+
+rc-update add docker default
+service docker start
+
+rc-update add avahi-daemon default
+service avahi-daemon start
