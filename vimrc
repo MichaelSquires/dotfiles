@@ -18,8 +18,11 @@ set textwidth=120
 set ignorecase
 set smartcase
 
+filetype plugin on
+
 set list
-set listchars=eol:$,tab:\|-,trail:~,extends:>,precedes:<
+"set listchars=eol:$,tab:\|-,trail:~,extends:>,precedes:<
+set listchars=tab:\|-,trail:~,extends:>,precedes:<
 
 " Get zenburn from: https://raw.githubusercontent.com/jnurmine/Zenburn/master/colors/zenburn.vim
 " Install to 
