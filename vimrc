@@ -1,43 +1,52 @@
+" Auto-indent
 set ai
 
+" Syntax highlighting
 set syn=on
 syntax on
 
+" Show line numbers
 set number
-set hlsearch
+
+" Set tab behavior
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
+" Highlight the current row/column
 set cursorline
 set cursorcolumn
 
+" Auto-newline at 120
 set textwidth=120
 
-set ignorecase
+" Smarter searching
+set hlsearch
 set smartcase
+set ignorecase
 
+" Filetype specific options
 filetype plugin on
 
+" Backspace behavior to be more intuitive
+set backspace=indent,eol,start
+
+" Show whitespace
 set list
 "set listchars=eol:$,tab:\|-,trail:~,extends:>,precedes:<
 set listchars=tab:\|-,trail:~,extends:>,precedes:<
 
-" Get zenburn from: https://raw.githubusercontent.com/jnurmine/Zenburn/master/colors/zenburn.vim
-" Install to 
-"   - *nix: ~/.vim/colors 
-"   - Windows (all users): c:\vim\colors 
-"   - Windows (current user): c:\Users\<username>\vimfiles\colors
+" Color scheme
 set t_Co=256
 let g:zenburn_alternate_Visual=1
 let g:zenburn_high_Contrast=1
 let g:zenburn_transparent=1
 colorscheme zenburn
-"colorscheme darkblue
 
 " Get monaco from: https://code.google.com/p/usystem/downloads/detail?name=MONACO.TTF
 "set guifont=monaco:h8
 
+" Status line
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
