@@ -26,6 +26,9 @@ set hlsearch
 set smartcase
 set ignorecase
 
+" This is for file-watching services
+set backupcopy=yes
+
 " Filetype specific options
 filetype plugin on
 
