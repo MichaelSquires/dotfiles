@@ -11,7 +11,8 @@ Plugin 'airblade/vim-gitgutter'
 " All of your Plugins must be added before the following line
 call vundle#end()
 
-setlocal foldmethod=indent
+set foldmethod=indent
+set nofen
 
 " Auto-indent
 set ai
