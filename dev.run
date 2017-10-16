@@ -1,13 +1,16 @@
 #!/bin/sh
 
+PWD=`pwd`
+BASENAME=`basename ${PWD}`
 HOMEDIR=/home/`whoami`
 
 docker run \
-    --rm \
     -it \
+    --name dev-${BASENAME} \
     -w ${HOMEDIR} \
     -u `id -u`:`id -g` \
+    -v ${PWD}:${HOMEDIR}/${BASENAME} \
     -v ~/.vim:${HOMEDIR}/.vim \
     -v ~/.vimrc:${HOMEDIR}/.vimrc \
     -v ~/.tmux.conf:${HOMEDIR}/.tmux.conf \
-    ubuntu-dev
+    ubuntu-dev:latest

@@ -1,8 +1,9 @@
 #!/bin/sh
 
-export DOCKER_UID=`id -u`
-export DOCKER_GID=`id -g`
-export DOCKER_USERNAME=`whoami`
+DOCKER_UID=`id -u`
+DOCKER_GID=`id -g`
+DOCKER_USERNAME=`whoami`
+HERE=`dirname ${BASH_SOURCE[0]}`
 
 docker build \
     --rm \
@@ -10,4 +11,4 @@ docker build \
     --build-arg UID=${DOCKER_UID} \
     --build-arg GID=${DOCKER_GID} \
     --build-arg USERNAME=${DOCKER_USERNAME} \
-    .
+    ${HERE}

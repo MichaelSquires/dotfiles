@@ -4,6 +4,7 @@ export HISTCONTROL=ignoreboth
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=1000
 export HISTFILESIZE=2000
+
 export EDITOR=vim
 
 set -o vi
@@ -28,7 +29,15 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# User specific aliases and functions
 alias vi='vim'
+alias gcc='gcc -Wall'
+alias tcpdump='sudo tcpdump'
+alias ssh='ssh -AXY'
+
+set -o vi
+
+export PATH=$PATH:`dirname ${BASH_SOURCE[0]}`
 
 if [ `which brew` ]; then
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
