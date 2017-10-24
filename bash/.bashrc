@@ -24,20 +24,30 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # User specific aliases and functions
-alias vi='vim'
 alias gcc='gcc -Wall'
+alias ls='ls -hG'
+alias ll='ls -laF'
 alias tcpdump='sudo tcpdump'
+alias vi='vim'
+alias ping6='ping6 -I en1'
 alias ssh='ssh -AXY'
+alias grep='grep --color=auto'
 
+# vi mode in the shell
 set -o vi
 
-export PATH=$PATH:`dirname ${BASH_SOURCE[0]}`
+# Source global definitions
+if [ -r /etc/profile ]; then
+	. /etc/profile
+fi
+
+export PATH=$PATH:/usr/local/sbin:/Applications/Xcode.app/Contents/Developer/usr/bin:`dirname ${BASH_SOURCE[0]}`
+export PS1='[\u@\h \W]\$ '
+
+if [ "$DISPLAY" == "" ]; then
+    export DISPLAY=localhost:0.0
+fi
 
 if [ `which brew` ]; then
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
