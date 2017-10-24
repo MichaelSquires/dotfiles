@@ -3,7 +3,6 @@ This repository is here to make it easier for me to manage all my random config 
 
 ## How to
 
-1. Clone the repository: `git clone git@github.com/MichaelSquires/dotfiles.git`
-1. Install the scripts: `dotfiles/install.sh`
-
-*NOTE*: The install script will not overwrite files that currently exist.
+1. Clone the repository: `git clone git@github.com/MichaelSquires/dotfiles.git .dotfiles`
+1. Change to directory: `cd .dotfiles`
+1. Install with stow: `stow bash ssh tmux vim`
