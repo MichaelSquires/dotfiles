@@ -42,7 +42,7 @@ if [ -r /etc/profile ]; then
 	. /etc/profile
 fi
 
-export PATH=$PATH:/usr/local/sbin:/Applications/Xcode.app/Contents/Developer/usr/bin:`dirname ${BASH_SOURCE[0]}`
+export PATH=$PATH:/usr/local/sbin:/Applications/Xcode.app/Contents/Developer/usr/bin:~/.local
 export PS1='[\u@\h \W]\$ '
 
 if [ "$DISPLAY" == "" ]; then
