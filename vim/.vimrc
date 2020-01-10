@@ -1,17 +1,3 @@
-" Run :PluginInstall to install plugins
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'ctrlpvim/ctrlp.vim'
-
-" All of your Plugins must be added before the following line
-call vundle#end()
-
 set foldmethod=indent
 set nofen
 
@@ -58,8 +44,6 @@ set backspace=indent,eol,start
 
 " Show whitespace
 set list
-"set listchars=eol:$,tab:\|-,trail:~,extends:>,precedes:<
-"set listchars=tab:\|-,trail:~,extends:>,precedes:<
 set listchars=tab:»\ ,extends:›,precedes:‹,trail:•
 
 " Color scheme
