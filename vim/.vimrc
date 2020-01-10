@@ -49,13 +49,18 @@ set backupcopy=yes
 " Filetype specific options
 filetype plugin on
 
+" Disable auto-comments
+set formatoptions-=o
+autocmd FileType * setlocal formatoptions-=o
+
 " Backspace behavior to be more intuitive
 set backspace=indent,eol,start
 
 " Show whitespace
 set list
 "set listchars=eol:$,tab:\|-,trail:~,extends:>,precedes:<
-set listchars=tab:\|-,trail:~,extends:>,precedes:<
+"set listchars=tab:\|-,trail:~,extends:>,precedes:<
+set listchars=tab:»\ ,extends:›,precedes:‹,trail:•
 
 " Color scheme
 set t_Co=256
@@ -65,8 +70,8 @@ let g:zenburn_transparent=1
 colorscheme zenburn
 
 " Switch buffers easily with TAB and SHIFT-TAB
-:nnoremap <Tab> :bnext<CR>
-:nnoremap <S-Tab> :bprevious<CR>
+:nnoremap <Tab> :tabn<CR>
+:nnoremap <S-Tab> :tabp<CR>
 
 " Get monaco from: https://code.google.com/p/usystem/downloads/detail?name=MONACO.TTF
 "set guifont=monaco:h8

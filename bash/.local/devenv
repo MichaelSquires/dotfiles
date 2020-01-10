@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 PWD=`pwd`
 HOMEDIR=/home/`whoami`
@@ -28,10 +28,14 @@ else
         -it \
         --name devenv-${BASENAME} \
         -u `id -u`:`id -g` \
+        -e USER=${USER} \
+        -e LC_ALL=C.UTF-8 \
         -v ${PWD}:${HOMEDIR}/${BASENAME} \
         -w ${HOMEDIR}/${BASENAME} \
-        -v ~/.vim:${HOMEDIR}/.vim \
-        -v ~/.vimrc:${HOMEDIR}/.vimrc \
-        -v ~/.tmux.conf:${HOMEDIR}/.tmux.conf \
+        -v ~/.vim:${HOMEDIR}/.vim:ro \
+        -v ~/.vimrc:${HOMEDIR}/.vimrc:ro \
+        -v ~/.tmux.conf:${HOMEDIR}/.tmux.conf:ro \
+        --cap-add=SYS_PTRACE \
+        --expose 5000 \
         ${DOCKER_IMAGE_TAG}
 fi
