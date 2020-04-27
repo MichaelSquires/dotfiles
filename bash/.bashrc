@@ -18,3 +18,4 @@ alias ls='ls -G'
 alias vi='vim'
 
 export PS1='[\u@\h \W]\$ '
+export PATH=${PATH}:~/.local
