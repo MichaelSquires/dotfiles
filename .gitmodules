@@ -1,7 +1,6 @@
-[submodule "vim-gitgutter"]
+[submodule "vim/.vim/pack/airblade/start"]
 	path = vim/.vim/pack/airblade/start
 	url = https://github.com/airblade/vim-gitgutter.git
-
-[submodule "zenburn"]
-    path = vim/.vim/pack/jnurmine/start
-    url = https://github.com/jnurmine/Zenburn
+[submodule "vim/.vim/pack/jnurmine/start"]
+	path = vim/.vim/pack/jnurmine/start
+	url = https://github.com/jnurmine/Zenburn
