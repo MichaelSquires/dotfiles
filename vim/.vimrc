@@ -21,8 +21,8 @@ set softtabstop=4
 set cursorline
 set cursorcolumn
 
-" Auto-newline at 120
-set textwidth=120
+" Auto-newline
+set textwidth=180
 
 " Smarter searching
 set hlsearch
@@ -63,3 +63,12 @@ colorscheme zenburn
 " Status line
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 set laststatus=2
+
+" Refresh window
+set updatetime=250
+
+" vim-rainbow
+let g:rainbow_active = 1
+
+" lightline
+set noshowmode
