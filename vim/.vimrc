@@ -1,3 +1,6 @@
+set encoding=utf-8
+set visualbell
+
 set foldmethod=indent
 set nofen
 
@@ -57,8 +60,7 @@ colorscheme zenburn
 :nnoremap <Tab> :tabn<CR>
 :nnoremap <S-Tab> :tabp<CR>
 
-" Get monaco from: https://code.google.com/p/usystem/downloads/detail?name=MONACO.TTF
-"set guifont=monaco:h8
+set guifont=Fira_Code:h8
 
 " Status line
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
