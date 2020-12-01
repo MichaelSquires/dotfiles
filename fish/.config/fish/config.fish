@@ -18,4 +18,4 @@ set IGNOREEOF 1
 # Exported variables
 set -x EDITOR vim
 set -x HOMEBREW_NO_ANALYTICS 1
-set -ax PATH ~/.local
+set -ax PATH ~/.local ~/.cargo/bin
