@@ -9,13 +9,13 @@ end
 bind -M insert \cd ignore-eof
 
 # Aliases
-alias vi=vim
+alias vi=nvim
 
 # Variables
 set fish_greeting ""
 set IGNOREEOF 1
 
 # Exported variables
-set -x EDITOR vim
+set -x EDITOR nvim
 set -x HOMEBREW_NO_ANALYTICS 1
 set -ax PATH ~/.local ~/.cargo/bin

@@ -11,7 +11,7 @@ This repository is here to make it easier for me to manage all my random config 
 ## Linux install
 
 1. Change to directory: `cd .dotfiles`
-1. Install with stow: `stow bash ssh tmux vim`
+1. Install with stow: `stow bash config ssh tmux vim`
 
 ## Windows install
 

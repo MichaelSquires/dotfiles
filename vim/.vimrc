@@ -55,6 +55,7 @@ let g:zenburn_alternate_Visual=1
 let g:zenburn_high_Contrast=1
 let g:zenburn_transparent=1
 colorscheme zenburn
+hi Normal ctermbg=NONE
 
 " Switch buffers easily with TAB and SHIFT-TAB
 :nnoremap <Tab> :tabn<CR>
