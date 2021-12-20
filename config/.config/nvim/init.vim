@@ -6,7 +6,14 @@ if exists('g:vscode')
 
 endif
 
-" Import vim plugins and settings
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-source ~/.vimrc
+if has("linux")
+	" Import vim plugins and settings
+	set runtimepath^=~/.vim runtimepath+=~/.vim/after
+	let &packpath = &runtimepath
+	source ~/.vimrc
+else
+	set runtimepath^=~/vimfiles runtimepath+=~/vimfiles/after
+	let &packpath = &runtimepath
+	source ~/_vimrc
+end
+

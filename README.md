@@ -16,5 +16,14 @@ This repository is here to make it easier for me to manage all my random config 
 ## Windows install
 
 1. From command prompt with administrator access:
-  - mklink _vimrc path\\to\\dotfiles\\vim\\.vimrc
-  - mklink /d vimfiles path\\to\\dotfiles\\vim\\.vim
+  ```
+  mklink _vimrc path\to\dotfiles\vim\.vimrc
+  mklink /d vimfiles path\to\dotfiles\vim\.vim
+  mklink /d .vim path\to\dofiles\vim\.vim
+  mkdir "AppData\Local\Microsoft\Windows Terminal\Fragments"
+  mklink /d "AppData\Local\Microsoft\Windows Terminal\Fragments\%USERNAME%" path\to\dotfiles\terminal
+  ```
+
+2. Set the following user environment variables:
+
+- `XDG_CONFIG_HOME` -> `%USERPROFILE%\dotfiles\config\.config`
