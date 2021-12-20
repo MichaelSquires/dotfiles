@@ -6,14 +6,11 @@ if exists('g:vscode')
 
 endif
 
-if has("linux")
-	" Import vim plugins and settings
-	set runtimepath^=~/.vim runtimepath+=~/.vim/after
-	let &packpath = &runtimepath
-	source ~/.vimrc
-else
-	set runtimepath^=~/vimfiles runtimepath+=~/vimfiles/after
-	let &packpath = &runtimepath
-	source ~/_vimrc
-end
+" Resolve relative path to vim dir
+let $CFGDIR = stdpath('config')
+let $VIMDIR = '$CFGDIR/../../../vim/'
 
+" Configure nvim paths to overlap vim paths
+set runtimepath^=$VIMDIR/.vim runtimepath+=$VIMDIR/.vim/after
+let &packpath = &runtimepath
+source $VIMDIR/.vimrc
