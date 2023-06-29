@@ -14,9 +14,18 @@ shopt -s histappend
 set -o vi
 bind -m vi-insert "\C-l":clear-screen
 
-alias ls='ls -G'
+alias ls='ls --color'
 alias vi='vim'
 
 export PS1='[\u@\h \W]\$ '
 export PATH=${PATH}:~/.local
-source "$HOME/.cargo/env"
+#source "$HOME/.cargo/env"
+
+if [ -e $HOME/.pyenv ]
+then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+

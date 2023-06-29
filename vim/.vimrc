@@ -75,3 +75,6 @@ let g:rainbow_active = 1
 
 " lightline
 set noshowmode
+
+" synch clipboard and default register
+set clipboard=unnamedplus

@@ -7,3 +7,6 @@
 [submodule "vim/.vim/pack/itchyny/start/lightline.vim"]
 	path = vim/.vim/pack/itchyny/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim
+[submodule "vim/.vim/pack/rakuyo/start/vim-storm"]
+	path = vim/.vim/pack/rakuyo/start/vim-storm
+	url = https://github.com/rakuy0/vim-storm
