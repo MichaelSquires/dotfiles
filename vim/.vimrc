@@ -21,11 +21,13 @@ set shiftwidth=4
 set softtabstop=4
 
 " Highlight the current row/column
-set cursorline
-set cursorcolumn
+if !exists('g:vscode')
+    set cursorline
+    set cursorcolumn
+endif
 
 " Auto-newline
-set textwidth=180
+set textwidth=100
 
 " Smarter searching
 set hlsearch
@@ -75,3 +77,6 @@ let g:rainbow_active = 1
 
 " lightline
 set noshowmode
+
+" synch clipboard and default register
+set clipboard=unnamedplus

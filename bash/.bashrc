@@ -14,9 +14,24 @@ shopt -s histappend
 set -o vi
 bind -m vi-insert "\C-l":clear-screen
 
-alias ls='ls -G'
+alias ls='ls --color=auto'
+alias ll='ls -la'
 alias vi='vim'
+alias storm='python -m synapse.tools.storm cell:///tmp/v/cortex'
+alias cortex='python -m synapse.servers.cortex /tmp/v/cortex'
 
 export PS1='[\u@\h \W]\$ '
 export PATH=${PATH}:~/.local
-source "$HOME/.cargo/env"
+if [ -e $HOME/.cargo ]
+then
+    source "$HOME/.cargo/env"
+fi
+
+if [ -e $HOME/.pyenv ]
+then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+

@@ -6,11 +6,8 @@ if exists('g:vscode')
 
 endif
 
-" Resolve relative path to vim dir
-let $CFGDIR = stdpath('config')
-let $VIMDIR = '$CFGDIR/../../../vim/'
-
 " Configure nvim paths to overlap vim paths
-set runtimepath^=$VIMDIR/.vim runtimepath+=$VIMDIR/.vim/after
+let $HOME = getenv('HOME')
+set runtimepath^=$HOME/.vim runtimepath+=$HOME/.vim/after
 let &packpath = &runtimepath
-source $VIMDIR/.vimrc
+source $HOME/.vimrc
