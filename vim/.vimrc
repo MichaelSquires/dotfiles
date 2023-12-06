@@ -14,20 +14,20 @@ syntax on
 " Show line numbers
 set number
 
+if !exists('g:vscode')
+    " Highlight the current row/column
+    set cursorline
+    set cursorcolumn
+endif
+
 " Set tab behavior
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
-" Highlight the current row/column
-if !exists('g:vscode')
-    set cursorline
-    set cursorcolumn
-endif
-
 " Auto-newline
-set textwidth=100
+set textwidth=120
 
 " Smarter searching
 set hlsearch

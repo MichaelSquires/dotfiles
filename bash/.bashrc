@@ -1,3 +1,4 @@
+export TZ="America/New_York"
 export IGNOREEOF=1
 export HISTCONTROL=ignoreboth
 
@@ -35,3 +36,6 @@ then
     eval "$(pyenv virtualenv-init -)"
 fi
 
+
+export NVM_DIR="/home/blackout/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
