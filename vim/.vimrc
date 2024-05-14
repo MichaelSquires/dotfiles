@@ -7,17 +7,24 @@ set nofen
 " Auto-indent
 set ai
 
-" Syntax highlighting
-set syn=on
-syntax on
-
 " Show line numbers
 set number
 
 if !exists('g:vscode')
+    " Syntax highlighting
+    set syn=on
+    syntax on
+
     " Highlight the current row/column
     set cursorline
     set cursorcolumn
+
+    " Status line
+    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+    set laststatus=2
+
+    " Refresh window
+    set updatetime=250
 endif
 
 " Set tab behavior
@@ -64,13 +71,6 @@ hi Normal ctermbg=NONE
 :nnoremap <S-Tab> :tabp<CR>
 
 set guifont=Fira_Code_Retina:h8
-
-" Status line
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-set laststatus=2
-
-" Refresh window
-set updatetime=250
 
 " vim-rainbow
 let g:rainbow_active = 1

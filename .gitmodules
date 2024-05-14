@@ -10,3 +10,7 @@
 [submodule "vim/.vim/pack/rakuyo/start/vim-storm"]
 	path = vim/.vim/pack/rakuyo/start/vim-storm
 	url = https://github.com/rakuy0/vim-storm
+[submodule "tmux/.tmux/plugins/tpm/tpm"]
+	path = tmux/.tmux/plugins/tpm/tpm
+	url = https://github.com/tmux-plugins/tpm
+

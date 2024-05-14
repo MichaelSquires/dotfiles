@@ -5,7 +5,9 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 
-export EDITOR=vim
+if [ -z "${EDITOR}" ]; then
+    export EDITOR=vim
+fi
 export HOMEBREW_NO_ANALYTICS=1
 
 # append to the history file, don't overwrite it
@@ -35,7 +37,3 @@ then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
-
-
-export NVM_DIR="/home/blackout/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
