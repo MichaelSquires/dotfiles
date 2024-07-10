@@ -6,26 +6,25 @@ set nofen
 
 " Auto-indent
 set ai
+set formatoptions-=t
 
 " Show line numbers
 set number
 
-if !exists('g:vscode')
-    " Syntax highlighting
-    set syn=on
-    syntax on
+" Syntax highlighting
+set syn=on
+"syntax on
 
-    " Highlight the current row/column
-    set cursorline
-    set cursorcolumn
+" Highlight the current row/column
+set cursorline
+set cursorcolumn
 
-    " Status line
-    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-    set laststatus=2
+" Status line
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=%03.3b:0x%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+"set laststatus=2
 
-    " Refresh window
-    set updatetime=250
-endif
+" Refresh window
+set updatetime=250
 
 " Set tab behavior
 set expandtab
@@ -33,8 +32,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
-" Auto-newline
-set textwidth=120
+set textwidth=80
 
 " Smarter searching
 set hlsearch
@@ -45,7 +43,7 @@ set ignorecase
 set backupcopy=yes
 
 " Filetype specific options
-filetype plugin on
+"filetype plugin on
 
 " Disable auto-comments
 set formatoptions-=o
@@ -63,12 +61,13 @@ set t_Co=256
 let g:zenburn_alternate_Visual=1
 let g:zenburn_high_Contrast=1
 let g:zenburn_transparent=1
-colorscheme zenburn
+colors moonfly
 hi Normal ctermbg=NONE
+hi Normal guibg=NONE
 
 " Switch buffers easily with TAB and SHIFT-TAB
-:nnoremap <Tab> :tabn<CR>
-:nnoremap <S-Tab> :tabp<CR>
+:nnoremap <Tab> :bn<CR>
+:nnoremap <S-Tab> :bp<CR>
 
 set guifont=Fira_Code_Retina:h8
 
@@ -76,7 +75,5 @@ set guifont=Fira_Code_Retina:h8
 let g:rainbow_active = 1
 
 " lightline
-set noshowmode
+"set noshowmode
 
-" synch clipboard and default register
-set clipboard=unnamedplus
