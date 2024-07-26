@@ -1,0 +1,49 @@
+import = [
+    "~/.config/alacritty/themes/themes/google.toml"
+]
+
+[window]
+opacity = 0.90
+startup_mode = "Maximized"
+blur = true
+
+[font]
+normal = { family = "Fira Code Nerd Font" }
+size = 10
+
+[colors.primary]
+background = "#000000"
+
+[selection]
+save_to_clipboard = true
+
+[[keyboard.bindings]]
+key = "F"
+mods = "Super"
+action = "ToggleFullscreen"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Super"
+action = "Paste"
+
+[[hints.enabled]]
+# Naively match and copy linux file paths
+regex = '(\/?[\w\.-]+\/)*[\w\.-]+\.\w+'
+action = "Paste"
+mouse.enabled = true
+
+[[hints.enabled]]
+# Naively match and copy linux file paths
+regex = '(\/?[\w\.-]+\/)*[\w\.-]+\.\w+'
+action = "Copy"
+mouse.enabled = true
+
+[[hints.enabled]]
+# Match and open URLs
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"

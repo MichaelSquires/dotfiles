@@ -1,0 +1,1 @@
+../../.dotfiles/config/.config/nvim/diagnostics.lua
