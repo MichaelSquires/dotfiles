@@ -15,6 +15,11 @@ if exists('g:vscode')
     set clipboard=unnamedplus
 endif
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 let mapleader = ' '
 call plug#begin("~/.vim/plug")
 
@@ -50,6 +55,9 @@ Plug 'nvim-neotest/neotest-python'
 " This block is for nvim-dap
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
+
+" Storm syntax highlighting
+Plug 'rakuy0/vim-storm'
 
 call plug#end()
 
