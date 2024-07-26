@@ -1,1 +1,11 @@
-../../.dotfiles/config/.config/nvim/coc-settings.json
+{
+    "pylsp.plugins.pycodestyle.enabled": true,
+    //"suggest.removeCurrentWord": true,
+    //"languageserver": {
+    //    "storm": {
+    //        "command": "python",
+    //        "args": ["/home/blackout/checkouts/stormgls/stormgls/stormgls.py"],
+    //        "filetypes": ["storm"]
+    //    }
+    //}
+}

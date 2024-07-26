@@ -1,1 +1,11 @@
-../.dotfiles/bash/.local/git-local-prune
+#!/bin/sh
+
+git fetch -p
+GONE=`git branch -vv | awk '/: gone]/{print $1}'`
+if [ ! -z "${GONE}" ]
+then
+    echo "Deleting tracking branches: ${GONE}"
+    git branch -D ${GONE}
+else
+    echo "Nothing to prune"
+fi

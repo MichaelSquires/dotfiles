@@ -1,1 +1,44 @@
-../.dotfiles/bash/.local/devenv
+#!/usr/bin/env bash
+
+PWD=`pwd`
+HOMEDIR=/home/`whoami`
+BASENAME=`basename ${PWD}`
+SCRIPT_DIR=`dirname ${BASH_SOURCE[0]}`
+
+DOCKER_UID=`id -u`
+DOCKER_GID=`id -g`
+DOCKER_USERNAME=`whoami`
+DOCKER_IMAGE_TAG=devenv:latest
+
+if [ ! "`docker image ls -q ${DOCKER_IMAGE_TAG}`" ]; then
+    echo "BUILDING ${DOCKER_IMAGE_TAG}"
+    docker build \
+        --rm \
+        --no-cache \
+        -t ${DOCKER_IMAGE_TAG} \
+        --build-arg UID=${DOCKER_UID} \
+        --build-arg GID=${DOCKER_GID} \
+        --build-arg USERNAME=${DOCKER_USERNAME} \
+        -f `realpath ${SCRIPT_DIR}/Dockerfile` \
+        ${SCRIPT_DIR}
+fi
+
+if [ "`docker container ls -aq -f \"name=devenv-${BASENAME}\"`" ]; then
+    docker start devenv-${BASENAME}
+    docker exec -ti devenv-${BASENAME} /bin/bash
+else
+    docker run \
+        -it \
+        --name devenv-${BASENAME} \
+        -u `id -u`:`id -g` \
+        -e USER=${USER} \
+        -e LC_ALL=C.UTF-8 \
+        -v ${PWD}:${HOMEDIR}/${BASENAME} \
+        -w ${HOMEDIR}/${BASENAME} \
+        -v ~/.vim:${HOMEDIR}/.vim:ro \
+        -v ~/.vimrc:${HOMEDIR}/.vimrc:ro \
+        -v ~/.tmux.conf:${HOMEDIR}/.tmux.conf:ro \
+        --cap-add=SYS_PTRACE \
+        --expose 5000 \
+        ${DOCKER_IMAGE_TAG}
+fi
