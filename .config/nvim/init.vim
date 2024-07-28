@@ -1,6 +1,7 @@
 let $HOME = getenv('HOME')
 set runtimepath^=$HOME/.vim runtimepath+=$HOME/.vim/after
 let &packpath = &runtimepath
+
 if exists('g:vscode')
     " === VSCode only settings ===
 
@@ -15,6 +16,7 @@ if exists('g:vscode')
     set clipboard=unnamedplus
 endif
 
+" Install vim-plug if necessary
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -26,11 +28,12 @@ call plug#begin("~/.vim/plug")
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 
+Plug 'neovim/nvim-lspconfig'
+
 Plug 'kien/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdcommenter'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -39,8 +42,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 
 Plug 'lewis6991/gitsigns.nvim'
-
-Plug 'neovim/nvim-lspconfig'
 
 Plug 'luukvbaal/statuscol.nvim'
 
@@ -56,8 +57,13 @@ Plug 'nvim-neotest/neotest-python'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
 
-" Storm syntax highlighting
+" Storm syntax highlighting and LSP
 Plug 'rakuy0/vim-storm'
+Plug 'rakuy0/stormgls', { 'do': ':StormUpdate' }
+
+" Code completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
 
 call plug#end()
 
@@ -72,23 +78,7 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_by_filename = 1
 let g:ctrlp_cmd = 'CtrlPMRU'
 
-:lua << EOF
-require("neotest").setup({
-  adapters = {
-    require("neotest-python")({
-      dap = { justMyCode = true },
-    }),
-  },
-})
-EOF
-
-:lua require("dap-python").setup("python")
-
-:lua require('gitsigns').setup()
-
-:lua require("statuscol").setup()
-
-:lua require("treesitter-context").setup()
+luafile $HOME/.config/nvim/misc.lua
 
 """ Git movement
 nnoremap <Leader>j :Gitsigns next_hunk<CR>
@@ -124,12 +114,6 @@ nnoremap <C-_> :call nerdcommenter#Comment('n', 'Toggle') <CR>
 vnoremap <C-_> :call nerdcommenter#Comment('x', 'Toggle') <CR>
 
 nnoremap <Bslash> :Rg<CR>
-
-"inoremap <expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
-
-set tagfunc=CocTagFunc
 
 " No more files called "1" in my cwd
 cabbrev w1 <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w!' : 'w1')<CR>
