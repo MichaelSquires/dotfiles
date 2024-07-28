@@ -68,6 +68,7 @@ hi Normal guibg=NONE
 " Switch buffers easily with TAB and SHIFT-TAB
 :nnoremap <Tab> :bn<CR>
 :nnoremap <S-Tab> :bp<CR>
+:nnoremap <Leader>x :bd<CR>
 
 set guifont=Fira_Code_Retina:h8
 
@@ -76,3 +77,7 @@ let g:rainbow_active = 1
 
 " lightline
 "set noshowmode
+
+" No more files called "1" in my cwd
+cabbrev w1 <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'w!' : 'w1')<CR>
+cabbrev wq1 <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'wq!' : 'wq1')<CR>
