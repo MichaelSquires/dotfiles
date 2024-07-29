@@ -43,7 +43,7 @@ set ignorecase
 set backupcopy=yes
 
 " Filetype specific options
-"filetype plugin on
+filetype plugin on
 
 " Disable auto-comments
 set formatoptions-=o

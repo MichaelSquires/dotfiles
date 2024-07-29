@@ -1,5 +1,7 @@
 return {
+    --
     -- User interface
+    --
     { "vim-airline/vim-airline",
         init = function()
             vim.g['airline_theme'] = 'simple'
@@ -12,7 +14,14 @@ return {
         },
     },
 
+    { 'luukvbaal/statuscol.nvim',
+        lazy = false,
+        opts = {}
+    },
+
+    --
     -- Colorscheme
+    --
     { "bluz71/vim-moonfly-colors",
         name = "moonfly",
         lazy = false,
@@ -22,19 +31,24 @@ return {
         end,
     },
 
+    --
     -- File management
+    --
     { "junegunn/fzf",
         enabled = false,
         name = "fzf",
-        dir = "~/.fzf",
-        build = "./install --all",
+        build = "./install --bin",
         dependencies = {
             'junegunn/fzf.vim',
+        },
+
+        keys = {
+            { '<C-p>', ':Files<CR>' },
         },
     },
 
     { 'kien/ctrlp.vim',
-        --enabled = false
+        --enabled = false,
         init = function()
             vim.g['ctrlp_working_path_mode'] = 0
             vim.g['ctrlp_by_filename'] = 1
@@ -42,12 +56,15 @@ return {
         end,
     },
 
+    --
     -- Language support
+    --
     { "neovim/nvim-lspconfig",
         config = function()
             require("lspconfig").pylsp.setup{}
         end,
     },
+
     { "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
 
@@ -62,7 +79,32 @@ return {
 
     { 'sheerun/vim-polyglot' },
 
+    -- Storm language
+    { 'rakuy0/vim-storm',
+        lazy = false,
+        config = function()
+            -- For some reason, the ftdetect is not working in this plugin with
+            -- lazy.nvim. In the meantime, slam it in manually
+            vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+                pattern = '*.storm',
+                callback = function() vim.bo.filetype = 'storm' end,
+            })
+        end,
+    },
+    { 'rakuy0/stormgls',
+        --lazy = false,
+        ft = 'storm',
+        event = 'BufEnter *.storm',
+        dependencies = {
+            'rakuy0/vim-storm',
+            'neovim/nvim-lspconfig',
+        },
+        build = ':StormUpdate',
+    },
+
+    --
     -- Code completion
+    --
     { 'hrsh7th/nvim-cmp',
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
@@ -102,11 +144,9 @@ return {
         end,
     },
 
-    -- Storm support
-    { 'rakuy0/vim-storm' },
-    { 'rakuy0/stormgls', build = ':StormUpdate' },
-
+    --
     -- Commenting
+    --
     { "scrooloose/nerdcommenter",
         keys = {
             { "<C-_>", ":call nerdcommenter#Comment('x', 'Toggle')<CR>", mode = "v", desc = "Toggle comments (visual)" },
@@ -120,8 +160,11 @@ return {
         opts = {},
     },
 
+    --
     -- Version control
+    --
     { 'lewis6991/gitsigns.nvim',
+        lazy = false,
         opts = {},
         keys = {
             { '<Leader>j', ':Gitsigns next_hunk<CR>' },
@@ -129,9 +172,10 @@ return {
             { '<Leader>p', ':Gitsigns preview_hunk<CR>' },
         },
     },
-    { 'luukvbaal/statuscol.nvim', opts = {} },
 
+    --
     -- Testing
+    --
     { 'nvim-neotest/neotest',
         dependencies = {
             'nvim-lua/plenary.nvim',
@@ -178,7 +222,9 @@ return {
         end,
     },
 
+    --
     -- Debugging
+    --
     { 'mfussenegger/nvim-dap',
         dependencies = {
             'mfussenegger/nvim-dap-python',
