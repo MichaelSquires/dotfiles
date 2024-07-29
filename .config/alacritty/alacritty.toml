@@ -29,13 +29,13 @@ action = "Paste"
 
 [[hints.enabled]]
 # Naively match and copy linux file paths
-regex = '(\/?[\w\.-]+\/)*[\w\.-]+\.\w+'
+regex = '(\/?[\w\.-]+\/)*[\w\.-]+(\.\w+|\/)'
 action = "Paste"
 mouse.enabled = true
 
 [[hints.enabled]]
 # Naively match and copy linux file paths
-regex = '(\/?[\w\.-]+\/)*[\w\.-]+\.\w+'
+regex = '(\/?[\w\.-]+\/)*[\w\.-]+(\.\w+|\/)'
 action = "Copy"
 mouse.enabled = true
 

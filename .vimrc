@@ -61,7 +61,6 @@ set t_Co=256
 "let g:zenburn_alternate_Visual=1
 "let g:zenburn_high_Contrast=1
 "let g:zenburn_transparent=1
-colors moonfly
 hi Normal ctermbg=NONE
 hi Normal guibg=NONE
 

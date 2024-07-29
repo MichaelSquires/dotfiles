@@ -85,15 +85,6 @@ return {
         },
     },
 
-    { 'kien/ctrlp.vim',
-        enabled = false,
-        init = function()
-            vim.g['ctrlp_working_path_mode'] = 0
-            vim.g['ctrlp_by_filename'] = 1
-            vim.g['ctrlp_cmd'] = 'CtrlPMRU'
-        end,
-    },
-
     --
     -- Language support
     --
@@ -187,6 +178,7 @@ return {
     --
     { "scrooloose/nerdcommenter",
         keys = {
+            -- <C-_> is Ctrl-/
             { "<C-_>", ":call nerdcommenter#Comment('x', 'Toggle')<CR>", mode = "v", desc = "Toggle comments (visual)" },
             { "<C-_>", ":call nerdcommenter#Comment('n', 'Toggle')<CR>", mode = "n", desc = "Toggle comments (normal)" },
         },
@@ -232,18 +224,12 @@ return {
             'nvim-treesitter/nvim-treesitter',
             'nvim-neotest/nvim-nio',
             'nvim-neotest/neotest-python',
+            'mfussenegger/nvim-dap',
         },
 
         keys = {
 
-            { '<Leader>tc',
-                function()
-                    require('neotest').run.run()
-                end,
-                desc = "[Test] Run current test"
-            },
-
-            { '<Leader>td',
+            { '<Leader>t.',
                 function()
                     require('neotest').run.run({
                         strategy = 'dap',
@@ -251,31 +237,28 @@ return {
                             SYN_REGRESSION_REPO = "/home/blackout/vertex/synapse-regression"
                         }
                     })
-
-                    require("dap").repl.toggle()
                 end,
-                desc = "[Test] Debug current test"
+                desc = "[Test] debug current test"
+            },
+
+            { '<Leader>tc',
+                function() require('neotest').run.run() end,
+                desc = "[Test] run Current test"
             },
 
             { '<Leader>tf',
-                function()
-                    require('neotest').run.run(fim.fn.expand('%'))
-                end,
-                desc = "[Test] Run current file"
+                function() require('neotest').run.run(vim.fn.expand('%')) end,
+                desc = "[Test] run current File"
             },
 
             { '<Leader>to',
-                function()
-                    require("neotest").output_panel.toggle()
-                end,
-                desc = "[Test] Toggle output panel"
+                function() require("neotest").output_panel.toggle() end,
+                desc = "[Test] toggle Output panel"
             },
 
-            { '<Leader>ts',
-                function()
-                    require("neotest").diagnostic.toggle()
-                end,
-                desc = "[Test] Toggle diagnostics"
+            { '<Leader>td',
+                function() require("neotest").diagnostic.toggle() end,
+                desc = "[Test] toggle Diagnostics"
             },
         },
 
@@ -292,14 +275,18 @@ return {
     -- Debugging
     --
     { 'mfussenegger/nvim-dap',
+        opts = {
+            initialize_timeout_sec = 10,
+        },
+
         dependencies = {
             'mfussenegger/nvim-dap-python',
         },
 
         keys = {
-            { '<Leader>db',
+            { '<Leader>d.',
                 function() require('dap').toggle_breakpoint() end,
-                desc = "[Debug] Toggle breakpoint"
+                desc = "[Debug] toggle breakpoint"
             },
 
             { '<Leader>dc',
@@ -309,7 +296,7 @@ return {
 
             { '<Leader>dn',
                 function() require('dap').step_over() end,
-                desc = "[Debug] Step over"
+                desc = "[Debug] Next (step over)"
             },
 
             { '<Leader>ds',
@@ -325,6 +312,42 @@ return {
 
         config = function()
             require('dap-python').setup('python')
+        end,
+    },
+
+    { "rcarriga/nvim-dap-ui",
+        opts = {},
+
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio"
+        },
+
+        keys = {
+            { '<Leader>du',
+                function() require("dapui").toggle() end,
+                desc = "[Debug] toggle User iterface"
+            },
+        },
+
+        init = function()
+            local dap, dapui = require("dap"), require("dapui")
+
+            dap.listeners.before.attach.dapui_config = function()
+              dapui.open()
+            end
+
+            dap.listeners.before.launch.dapui_config = function()
+              dapui.open()
+            end
+
+            dap.listeners.before.event_terminated.dapui_config = function()
+              dapui.close()
+            end
+
+            dap.listeners.before.event_exited.dapui_config = function()
+              dapui.close()
+            end
         end,
     },
 }
