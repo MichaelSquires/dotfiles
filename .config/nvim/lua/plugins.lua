@@ -7,7 +7,7 @@ return {
             vim.g['airline_theme'] = 'simple'
             vim.g['airline#extensions#tabline#enabled'] = 1
             vim.g['airline#extensions#tabline#formatter'] = 'unique_tail_improved'
-            --vim.g['airline_section_z'] = vim.cmd([[airline#section#create_right(['POS=%l/%L,%c'])]])
+            vim.g['airline_section_z'] = 'POS=%l/%L,%c'
         end,
         dependencies = {
             'vim-airline/vim-airline-themes',
@@ -17,6 +17,28 @@ return {
     { 'luukvbaal/statuscol.nvim',
         lazy = false,
         opts = {}
+    },
+
+    { "folke/which-key.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
+
+        opts = {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+        },
+
+        keys = {
+            { "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "[Which-key] Show buffer Local keymaps",
+            },
+        },
     },
 
     --
@@ -35,7 +57,8 @@ return {
     -- File management
     --
     { "junegunn/fzf",
-        enabled = false,
+        --enabled = false,
+        lazy = false,
         name = "fzf",
         build = "./install --bin",
         dependencies = {
@@ -43,12 +66,27 @@ return {
         },
 
         keys = {
-            { '<C-p>', ':Files<CR>' },
+            { '<Leader>.',
+                ':History<CR>',
+                desc = "[Fzf] Open MRU file"
+            },
+            { '<Leader>o',
+                ':Files<CR>',
+                desc = "[Fzf] Open file"
+            },
+            { '<Leader>o',
+                ':Files',
+                desc = "[Fzf] Open file in specified directory"
+            },
+            { '<Leader>/',
+                ':Rg<CR>',
+                desc = "[Fzf] Search files"
+            },
         },
     },
 
     { 'kien/ctrlp.vim',
-        --enabled = false,
+        enabled = false,
         init = function()
             vim.g['ctrlp_working_path_mode'] = 0
             vim.g['ctrlp_by_filename'] = 1
@@ -167,9 +205,20 @@ return {
         lazy = false,
         opts = {},
         keys = {
-            { '<Leader>j', ':Gitsigns next_hunk<CR>' },
-            { '<Leader>k', ':Gitsigns prev_hunk<CR>' },
-            { '<Leader>p', ':Gitsigns preview_hunk<CR>' },
+            { '<Leader>j',
+                ':Gitsigns next_hunk<CR>',
+                desc = "[Git] Go to next change"
+            },
+
+            { '<Leader>k',
+                ':Gitsigns prev_hunk<CR>',
+                desc = "[Git] Go to previous change"
+            },
+
+            { '<Leader>p',
+                ':Gitsigns preview_hunk<CR>',
+                desc = "[Git] Preview change"
+            },
         },
     },
 
@@ -187,11 +236,15 @@ return {
 
         keys = {
 
-            -- Run current test
-            { '<Leader>tc', function() require('neotest').run.run() end },
+            { '<Leader>tc',
+                function()
+                    require('neotest').run.run()
+                end,
+                desc = "[Test] Run current test"
+            },
 
-            -- Debug current test
-            { '<Leader>td', function()
+            { '<Leader>td',
+                function()
                     require('neotest').run.run({
                         strategy = 'dap',
                         env = {
@@ -200,17 +253,30 @@ return {
                     })
 
                     require("dap").repl.toggle()
-                end
+                end,
+                desc = "[Test] Debug current test"
             },
 
-            -- Run current file
-            { '<Leader>tf', function() require('neotest').run.run(fim.fn.expand('%')) end },
+            { '<Leader>tf',
+                function()
+                    require('neotest').run.run(fim.fn.expand('%'))
+                end,
+                desc = "[Test] Run current file"
+            },
 
-            -- Show test output
-            { '<Leader>to', function() require("neotest").output_panel.toggle() end },
+            { '<Leader>to',
+                function()
+                    require("neotest").output_panel.toggle()
+                end,
+                desc = "[Test] Toggle output panel"
+            },
 
-            -- Show test diagnostics
-            { '<Leader>ts', function() require("neotest").diagnostic.toggle() end },
+            { '<Leader>ts',
+                function()
+                    require("neotest").diagnostic.toggle()
+                end,
+                desc = "[Test] Toggle diagnostics"
+            },
         },
 
         opts = function(_, opts)
@@ -231,11 +297,30 @@ return {
         },
 
         keys = {
-            { '<Leader>db', function() require('dap').toggle_breakpoint() end },
-            { '<Leader>dc', function() require('dap').continue() end },
-            { '<Leader>dn', function() require('dap').step_over() end },
-            { '<Leader>ds', function() require('dap').step_into() end },
-            { '<Leader>dt', function() require('dap').repl.toggle() end },
+            { '<Leader>db',
+                function() require('dap').toggle_breakpoint() end,
+                desc = "[Debug] Toggle breakpoint"
+            },
+
+            { '<Leader>dc',
+                function() require('dap').continue() end,
+                desc = "[Debug] Continue"
+            },
+
+            { '<Leader>dn',
+                function() require('dap').step_over() end,
+                desc = "[Debug] Step over"
+            },
+
+            { '<Leader>ds',
+                function() require('dap').step_into() end,
+                desc = "[Debug] Step into"
+            },
+
+            { '<Leader>dt',
+                function() require('dap').repl.toggle() end,
+                desc = "[Debug] Toggle repl"
+            },
         },
 
         config = function()

@@ -1,3 +1,7 @@
+-- Make sure to setup `mapleader` and `maplocalleader` before
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 require("config.lazy")
 
 vim.cmd([[
