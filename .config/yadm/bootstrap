@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ ! -e ~/.pyenv ]; then
+    echo "ERROR: pyenv appears to not be installed!. Please install it and bootstrap again."
+    exit 1
+fi
+
+# Check for neovim virtualenv
+pyenv activate neovim
+if [ $? -eq 1 ]; then
+    echo "INFO: pyenv virtualenv neovim not found. Creating it now."
+    pyenv virtualenv 3.11.7 neovim
+fi
+
+# Run pip install -U -r requirements.txt in virtualenv
+runvenv neovim pip install -U r ~/.config/nvim/requirements.txt
