@@ -1,0 +1,4 @@
+neovim
+pynvim
+debugpy
+python-lsp-server

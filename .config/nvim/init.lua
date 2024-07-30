@@ -10,6 +10,10 @@ vim.cmd([[
     source ~/.vimrc
 ]])
 
+-- Set these in lua so we can have descriptions
+vim.keymap.set('n', '<Leader>x', ':bd<CR>', { desc = '[Buffer] Close buffer' })
+vim.keymap.set('n', '<Leader>l', ':Lazy<CR>', { desc = '[Lazy.nvim] Open panel' })
+
 -- Diagnostics configuration
 vim.diagnostic.config({
   virtual_text = {
