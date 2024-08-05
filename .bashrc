@@ -14,9 +14,9 @@ shopt -s histappend
 export PROMPT_COMMAND='history -a'
 
 if command -v nvim &> /dev/null; then
-    export EDITOR=venvnvim
-    alias vi='venvnvim'
-    alias vim='venvnvim'
+    export EDITOR=nvim
+    alias vi='nvim'
+    alias vim='nvim'
 else
     export EDITOR=vim
     alias vi='vim'
@@ -52,27 +52,6 @@ function changelog() {
     fi
 
     rm $CHANGELOG_TMPFILE
-}
-
-function runvenv() {
-    if [ $# -lt 2 ]; then
-        echo "USAGE: runvenv <venvname> <cmd> [options]"
-        return 1
-    fi
-
-    pyenv activate $1
-    shift
-
-    eval $*
-
-    pyenv deactivate
-}
-
-# Run nvim in a python virtual environment so we can control which modules are
-# installed and not have them interfere with system modules or other project
-# modules
-function venvnvim () {
-    runvenv neovim nvim $@
 }
 
 # fzf config

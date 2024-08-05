@@ -57,7 +57,7 @@ return {
     -- File management
     --
     { "junegunn/fzf",
-        --enabled = false,
+        enabled = false,
         lazy = false,
         name = "fzf",
         build = "./install --bin",
@@ -83,6 +83,17 @@ return {
                 desc = "[Fzf] Search files"
             },
         },
+    },
+
+
+    { 'kien/ctrlp.vim',
+        --enabled = false,
+        init = function()
+            vim.g['ctrlp_working_path_mode'] = 0
+            vim.g['ctrlp_by_filename'] = 1
+            vim.g['ctrlp_cmd'] = 'CtrlPMRU'
+            vim.g['ctrlp_extensions'] = { 'dir' }
+        end,
     },
 
     --

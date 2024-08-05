@@ -1,5 +1,5 @@
 -- Make sure to setup `mapleader` and `maplocalleader` before
-vim.g.mapleader = ""
+vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("config.lazy")
@@ -9,6 +9,8 @@ vim.cmd([[
     let &packpath = &runtimepath
     source ~/.vimrc
 ]])
+
+vim.g['python3_host_prog'] = '~/.pyenv/versions/neovim/bin/python3'
 
 -- Set these in lua so we can have descriptions
 vim.keymap.set('n', '<Leader>x', ':bd<CR>', { desc = '[Buffer] Close buffer' })

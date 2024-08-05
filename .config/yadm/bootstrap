@@ -10,7 +10,10 @@ pyenv activate neovim
 if [ $? -eq 1 ]; then
     echo "INFO: pyenv virtualenv neovim not found. Creating it now."
     pyenv virtualenv 3.11.7 neovim
+    pyenv activate neovim
 fi
 
 # Run pip install -U -r requirements.txt in virtualenv
-runvenv neovim pip install -U r ~/.config/nvim/requirements.txt
+runvenv neovim pip install -U -r ~/.config/nvim/requirements.txt
+
+pyenv deactivate
