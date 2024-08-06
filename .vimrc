@@ -15,6 +15,9 @@ set number
 set syn=on
 "syntax on
 
+" Top/bottom of screen buffer when scrolling
+set scrolloff=15
+
 " Highlight the current row/column
 set cursorline
 set cursorcolumn
@@ -63,6 +66,8 @@ set t_Co=256
 "let g:zenburn_transparent=1
 hi Normal ctermbg=NONE
 hi Normal guibg=NONE
+hi Cursorline guibg=#080808
+hi Cursorcolumn guibg=#080808
 
 " Switch buffers easily with TAB and SHIFT-TAB
 :nnoremap <Tab> :bn<CR>

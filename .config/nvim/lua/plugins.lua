@@ -123,8 +123,9 @@ return {
     { 'rakuy0/vim-storm',
         lazy = false,
         config = function()
-            -- For some reason, the ftdetect is not working in this plugin with
-            -- lazy.nvim. In the meantime, slam it in manually
+            -- For some reason, the ftdetect part of this plugin conflicts with
+            -- vim-polyglot. I like the functionality from both so just do the
+            -- autocommand here manually.
             vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
                 pattern = '*.storm',
                 callback = function() vim.bo.filetype = 'storm' end,
