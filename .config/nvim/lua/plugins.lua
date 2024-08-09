@@ -14,6 +14,36 @@ return {
         },
     },
 
+    { 'nvim-lualine/lualine.nvim',
+        enabled = false,
+        opts = {
+            sections = {
+                lualine_b = {'diff', 'diagnostics'},
+            },
+
+            tabline = {
+                lualine_a = {'buffers'},
+                lualine_b = {},
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = {'tabs'},
+            },
+
+            options = {
+                disabled_filetypes = {
+                    'ctrlp',
+                },
+            },
+
+            extensions = {
+                'nvim-dap-ui',
+                'lazy',
+            },
+        },
+        dependencies = { 'nvim-tree/nvim-web-devicons' },ctrlp
+    },
+
     { 'luukvbaal/statuscol.nvim',
         lazy = false,
         opts = {}
@@ -50,7 +80,23 @@ return {
         priority = 1000,
 
         init = function()
-            vim.g.moonflyTransparent = true
+            --vim.g.moonflyTransparent = true
+            vim.g.moonflyNormalFloat = true
+
+            vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+                vim.lsp.handlers.hover, {
+                    border = "single"
+                }
+            )
+
+            vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+
+                vim.lsp.handlers.signatureHelp, {
+                    border = "single"
+                }
+            )
+
+            vim.diagnostic.config({ float = { border = "single" } })
         end,
 
         config = function()
@@ -90,9 +136,7 @@ return {
         },
     },
 
-
-    { 'kien/ctrlp.vim',
-        --enabled = false,
+    { 'ctrlpvim/ctrlp.vim',
         init = function()
             vim.g['ctrlp_working_path_mode'] = 0
             vim.g['ctrlp_by_filename'] = 1
