@@ -48,6 +48,11 @@ return {
         name = "moonfly",
         lazy = false,
         priority = 1000,
+
+        init = function()
+            vim.g.moonflyTransparent = true
+        end,
+
         config = function()
             vim.cmd([[colorscheme moonfly]])
         end,
@@ -154,6 +159,10 @@ return {
         opts = function(_, opts)
             local cmp = require'cmp'
 
+            local winhighlight = {
+                winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel",
+            }
+
             opts.snippet = {
                 expand = function(args)
                     vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
@@ -161,8 +170,8 @@ return {
             }
 
             opts.window = {
-                --completion = cmp.config.window.bordered(),
-                --documentation = cmp.config.window.bordered(),
+                completion = cmp.config.window.bordered(winhighlight),
+                documentation = cmp.config.window.bordered(winhighlight),
             }
 
             opts.mapping = cmp.mapping.preset.insert({
