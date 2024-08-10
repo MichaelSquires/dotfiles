@@ -3,6 +3,7 @@ return {
     -- User interface
     --
     { "vim-airline/vim-airline",
+        enabled = false,
         init = function()
             vim.g['airline_theme'] = 'simple'
             vim.g['airline#extensions#tabline#enabled'] = 1
@@ -15,7 +16,7 @@ return {
     },
 
     { 'nvim-lualine/lualine.nvim',
-        enabled = false,
+        --enabled = false,
         opts = {
             sections = {
                 lualine_b = {'diff', 'diagnostics'},
@@ -41,7 +42,8 @@ return {
                 'lazy',
             },
         },
-        dependencies = { 'nvim-tree/nvim-web-devicons' },ctrlp
+
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
     { 'luukvbaal/statuscol.nvim',
@@ -71,6 +73,34 @@ return {
         },
     },
 
+    { "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
+
+        keys = {
+                { '',
+                    ':Neotree position=current toggle<CR>',
+                    desc = "[File] Toggle file tree"
+                },
+        },
+
+        opts = {
+            event_handlers = {
+                { -- Auto-close file browser when a file is opened
+                    event = "file_open_requested",
+                    handler = function()
+                        -- auto close
+                        require("neo-tree.command").execute({ action = "close" })
+                    end
+                },
+            },
+        },
+    },
+
     --
     -- Colorscheme
     --
@@ -90,17 +120,22 @@ return {
             )
 
             vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-
                 vim.lsp.handlers.signatureHelp, {
                     border = "single"
                 }
             )
 
             vim.diagnostic.config({ float = { border = "single" } })
+
         end,
 
         config = function()
+            -- These get overwritten by the plugin, put them back
             vim.cmd([[colorscheme moonfly]])
+            vim.cmd([[hi Normal ctermbg=NONE]])
+            vim.cmd([[hi Normal guibg=NONE]])
+            vim.cmd([[hi Cursorline guibg=#080808]])
+            vim.cmd([[hi Cursorcolumn guibg=#080808]])
         end,
     },
 
@@ -137,6 +172,7 @@ return {
     },
 
     { 'ctrlpvim/ctrlp.vim',
+        enabled = false,
         init = function()
             vim.g['ctrlp_working_path_mode'] = 0
             vim.g['ctrlp_by_filename'] = 1

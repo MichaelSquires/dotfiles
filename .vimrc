@@ -4,6 +4,12 @@ set visualbell
 set foldmethod=indent
 set nofen
 
+set autochdir
+set termguicolors
+
+let mapleader = " "
+let maplocalleader = "\\"
+
 " Auto-indent
 set ai
 set formatoptions-=t
