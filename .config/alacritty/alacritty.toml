@@ -12,6 +12,9 @@ blur = true
 normal = { family = "Fira Code Nerd Font" }
 size = 10
 
+[colors]
+transparent_background_colors = true
+
 [colors.primary]
 background = "#000000"
 
