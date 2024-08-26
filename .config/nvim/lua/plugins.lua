@@ -83,7 +83,7 @@ return {
 
         keys = {
                 { '',
-                    ':Neotree position=current toggle<CR>',
+                    ':Neotree position=current reveal toggle<CR>',
                     desc = "[File] Toggle file tree"
                 },
         },
@@ -99,6 +99,21 @@ return {
                 },
             },
         },
+    },
+
+    { "Isrothy/neominimap.nvim",
+        version = "v3.*.*",
+        enabled = true,
+        lazy = false,
+
+        init = function()
+            vim.opt.wrap = false
+            vim.opt.sidescrolloff = 36
+
+            vim.g.neominimap = {
+                auto_enable = true,
+            }
+        end,
     },
 
     --
@@ -217,6 +232,7 @@ return {
             })
         end,
     },
+
     { 'rakuy0/stormgls',
         --lazy = false,
         ft = 'storm',

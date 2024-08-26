@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -e ~/.pyenv ]; then
-    echo "ERROR: pyenv appears to not be installed!. Please install it and bootstrap again."
+    echo "ERROR: pyenv appears to not be installed!. Please install it and bootstrap again (yadm bootstrap)."
     exit 1
 fi
 
@@ -14,6 +14,6 @@ if [ $? -eq 1 ]; then
 fi
 
 # Run pip install -U -r requirements.txt in virtualenv
-runvenv neovim pip install -U -r ~/.config/nvim/requirements.txt
+pip install -U -r ~/.config/nvim/requirements.txt
 
 pyenv deactivate

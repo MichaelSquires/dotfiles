@@ -80,6 +80,11 @@ hi Cursorcolumn guibg=#080808
 :nnoremap <S-Tab> :bp<CR>
 :nnoremap <Leader>x :bd<CR>
 
+" copy and paste to/from system clipboard
+vmap <C-c> "+yi
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+
 set guifont=Fira_Code_Retina:h8
 
 " vim-rainbow

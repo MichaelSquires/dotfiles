@@ -6,10 +6,10 @@ import = [
 [window]
 opacity = 0.90
 startup_mode = "Maximized"
-blur = true
 
 [font]
-normal = { family = "Fira Code Nerd Font" }
+normal = { family = "JetBrains Mono" }
+#normal = { family = "Fira Code Medium" }
 size = 10
 
 [colors]
