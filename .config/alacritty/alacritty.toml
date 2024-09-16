@@ -8,9 +8,9 @@ opacity = 0.90
 startup_mode = "Maximized"
 
 [font]
-normal = { family = "JetBrains Mono" }
-#normal = { family = "Fira Code" }
-size = 9
+#normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+normal = { family = "FiraCode Nerd Font", style = "Medium" }
+size = 10
 
 [colors]
 transparent_background_colors = true

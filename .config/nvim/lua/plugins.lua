@@ -186,16 +186,32 @@ return {
     --
     { "neovim/nvim-lspconfig",
         config = function()
-            require("lspconfig").pylsp.setup{}
+            require("lspconfig").pylsp.setup{
+                settings = {
+                    plugins = {
+                        flake8 = {
+                            enabled = true
+                        }
+                    }
+                }
+            }
         end,
     },
 
     { "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
 
-        opts = {
-            ensure_installed = {"python", "vimdoc"},
-        },
+        config = function()
+            local configs = require("nvim-treesitter.configs")
+
+            configs.setup({
+                -- highlight = { enable = true },
+                ensure_installed = {"python", "vimdoc", "ebnf"},
+            })
+
+            vim.treesitter.language.register("ebnf", "lark")
+            vim.filetype.add { extension = { lark = 'ebnf' } }
+        end,
 
         dependencies = {
             { "nvim-treesitter/nvim-treesitter-context", opts = {} },
