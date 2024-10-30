@@ -57,11 +57,7 @@ return {
             'nvim-tree/nvim-web-devicons',
         },
 
-        opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-        },
+        opts = {},
 
         keys = {
             { "<leader>?",
@@ -73,32 +69,17 @@ return {
         },
     },
 
-    { "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
-
-        keys = {
-                { '',
-                    ':Neotree position=current reveal toggle<CR>',
-                    desc = "[File] Toggle file tree"
-                },
-        },
-
+    { "shellRaining/hlchunk.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
-            event_handlers = {
-                { -- Auto-close file browser when a file is opened
-                    event = "file_open_requested",
-                    handler = function()
-                        -- auto close
-                        require("neo-tree.command").execute({ action = "close" })
-                    end
-                },
+            chunk = {
+                enable = true,
             },
-        },
+
+            indent = {
+                enable = true,
+            },
+        }
     },
 
     --
@@ -142,6 +123,34 @@ return {
     --
     -- File management
     --
+    { "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
+
+        keys = {
+                { '',
+                    ':Neotree position=current reveal toggle<CR>',
+                    desc = "[File] Toggle file tree"
+                },
+        },
+
+        opts = {
+            event_handlers = {
+                { -- Auto-close file browser when a file is opened
+                    event = "file_open_requested",
+                    handler = function()
+                        -- auto close
+                        require("neo-tree.command").execute({ action = "close" })
+                    end
+                },
+            },
+        },
+    },
+
     { "junegunn/fzf",
         enabled = false,
         lazy = false,
@@ -181,6 +190,18 @@ return {
         end,
     },
 
+    { "ibhagwan/fzf-lua",
+        enabled = false,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {},
+        keys = {
+            { '',
+                ':FzfLua files<CR>',
+                desc = "[FzfLua] Open file"
+            },
+        },
+    },
+
     --
     -- Language support
     --
@@ -214,7 +235,11 @@ return {
         end,
 
         dependencies = {
-            { "nvim-treesitter/nvim-treesitter-context", opts = {} },
+            { "nvim-treesitter/nvim-treesitter-context",
+                opts = {
+                    multiline_threshold = 7,
+                }
+            },
         },
     },
 
@@ -237,6 +262,7 @@ return {
     { 'rakuy0/stormgls',
         --lazy = false,
         ft = 'storm',
+        --branch = 'rakuyo/hover-hook',
         event = 'BufEnter *.storm',
         dependencies = {
             'rakuy0/vim-storm',
@@ -286,8 +312,53 @@ return {
             opts.sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                 }, {
+                    { name = 'nvim_lsp_signature_help' },
+                }, {
                     { name = 'buffer' },
             })
+
+            opts.formatting = {
+                format = function(entry, vim_item)
+
+                    -- Kind icons
+                    local kind_icons = {
+                        -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
+                        Text = " ",
+                        Method = "󰆧",
+                        Function = "ƒ ",
+                        Constructor = " ",
+                        Field = "󰜢 ",
+                        Variable = " ",
+                        Constant = " ",
+                        Class = " ",
+                        Interface = "󰜰 ",
+                        Struct = " ",
+                        Enum = "了 ",
+                        EnumMember = " ",
+                        Module = "",
+                        Property = " ",
+                        Unit = " ",
+                        Value = "󰎠 ",
+                        Keyword = "󰌆 ",
+                        Snippet = " ",
+                        File = " ",
+                        Folder = " ",
+                        Color = " ",
+                    }
+                    -- This concatonates the icons with the name of the item kind
+                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+
+                    -- Source
+                    vim_item.menu = ({
+                        buffer = "[Buffer]",
+                        nvim_lsp = "[LSP]",
+                        luasnip = "[LuaSnip]",
+                        nvim_lua = "[NvimAPI]",
+                        path = "[Path]",
+                    })[entry.source.name]
+                    return vim_item
+                end,
+            }
         end,
     },
 
