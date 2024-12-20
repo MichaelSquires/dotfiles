@@ -6,7 +6,7 @@ export PATH=${PATH}:~/.local
 
 # History options
 export HISTCONTROL=ignoreboth
-export HISTSIZE=500
+export HISTSIZE=5000
 export HISTFILESIZE=10000
 shopt -s histappend
 

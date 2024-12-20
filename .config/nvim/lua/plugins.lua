@@ -262,7 +262,6 @@ return {
     { 'rakuy0/stormgls',
         --lazy = false,
         ft = 'storm',
-        --branch = 'rakuyo/hover-hook',
         event = 'BufEnter *.storm',
         dependencies = {
             'rakuy0/vim-storm',
