@@ -375,6 +375,7 @@ return {
 
         init = function()
             vim.g['NERDDefaultAlign'] = 'left'
+            vim.g['NERDCustomDelimiters'] = { storm = { left = '//', leftAlt = '//' } }
         end,
 
         opts = {},
