@@ -20,7 +20,7 @@ def main(args):
         abbrev.append('~')
         idx = len(homedir.parts)
 
-    while idx < len(parts):
+    while idx < len(parts) - 1:
         parent = pathlib.Path(os.path.join(*parts[:idx]))
         curdir = parent / parts[idx]
 
@@ -31,6 +31,8 @@ def main(args):
             abbrev.append(curdir.stem[0])
 
         idx += 1
+
+    abbrev.append(parts[-1])
 
     abbrev = os.path.sep.join(abbrev)
     if not home:

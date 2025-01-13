@@ -22,7 +22,7 @@ else
     alias vi='vim'
 fi
 
-if [ -e ~/.1password/agent.sock ]; then
+if [ -e ~/.1password/agent.sock -a -z "$SSH_AUTH_SOCK" ]; then
     export SSH_AUTH_SOCK=~/.1password/agent.sock
 fi
 

@@ -261,6 +261,7 @@ return {
 
     { 'rakuy0/stormgls',
         --lazy = false,
+        --enabled = false,
         ft = 'storm',
         event = 'BufEnter *.storm',
         dependencies = {
@@ -268,6 +269,7 @@ return {
             'neovim/nvim-lspconfig',
         },
         build = ':StormUpdate',
+        branch = 'master',
     },
 
     --
