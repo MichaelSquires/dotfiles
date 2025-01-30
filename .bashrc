@@ -33,6 +33,11 @@ alias ll='ls -la'
 alias storm='python -m synapse.tools.storm cell:///tmp/v/cortex'
 alias cortex='python -m synapse.servers.cortex /tmp/v/cortex'
 
+# SSH agent coupling for reattaching tmux sessions
+if test -n "$TMUX" -a -n "$SSH_TTY" -a -n "$SSH_AUTH_SOCK"; then
+    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+fi
+
 function changelog() {
     if [ $# -ne 1 ]; then
         echo "USAGE: changelog <type>"
