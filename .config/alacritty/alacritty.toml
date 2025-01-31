@@ -27,6 +27,11 @@ key = "V"
 mods = "Super"
 action = "Paste"
 
+[[keyboard.bindings]]
+key = "N"
+mods = "Super"
+action = "CreateNewWindow"
+
 [[hints.enabled]]
 # Naively match and copy linux file paths
 regex = '(\/?[\w\.-]+\/)*[\w\.-]+(\.\w+|\/)'
