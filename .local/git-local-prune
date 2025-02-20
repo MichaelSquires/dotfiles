@@ -2,7 +2,7 @@
 
 git fetch -p
 GONE=`git branch -vv | cut -c "3-" | awk '/: gone]/{print $1}'`
-if [ ! -z "${GONE}" ]
+if [ -n "${GONE}" ]
 then
     echo "Deleting tracking branches: ${GONE}"
     git branch -D ${GONE}
