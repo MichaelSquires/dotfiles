@@ -71,14 +71,19 @@ fi
 [ -e $HOME/.cargo/bin ] && export PATH=$PATH:$HOME/.cargo/bin
 
 # pyenv config
-if [ -e $HOME/.pyenv ]; then
+if [ -d $HOME/.pyenv ]; then
     export PYENV_ROOT="$HOME/.pyenv"
     command -v pyenv &> /dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+BREW=/home/linuxbrew/.linuxbrew/bin/brew
+if [ -e $BREW ]; then
+    eval "$($BREW shellenv)"
+else
+    echo "Linux brew not found."
+fi
 
 export NVM_DIR="$HOME/.config/nvm"
 if [ -e $NVM_DIR ]; then
