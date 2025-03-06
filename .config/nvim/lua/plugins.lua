@@ -82,6 +82,17 @@ return {
         }
     },
 
+    { "stevearc/quicker.nvim",
+        event = "FileType qf",
+        ---@module "quicker"
+        ---@type quicker.SetupOptions
+        opts = {},
+    },
+
+    { "LunarVim/bigfile.nvim",
+        opts = {},
+    },
+
     --
     -- Colorscheme
     --
@@ -133,7 +144,7 @@ return {
 
         keys = {
                 { '',
-                    ':Neotree position=current reveal toggle<CR>',
+                    ':Neotree position=float reveal toggle<CR>',
                     desc = "[File] Toggle file tree"
                 },
         },

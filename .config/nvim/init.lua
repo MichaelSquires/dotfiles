@@ -15,6 +15,11 @@ require("config.lazy")
 vim.keymap.set('n', '<Leader>x', ':bd<CR>', { desc = '[Buffer] Close buffer' })
 vim.keymap.set('n', '<Leader>l', ':Lazy<CR>', { desc = '[Lazy.nvim] Open panel' })
 
+vim.keymap.set('n', '<Leader>qo', ':copen<CR>', { desc = '[Quickfix] Open quickfix panel' })
+vim.keymap.set('n', '<Leader>qc', ':ccl<CR>', { desc = '[Quickfix] Close quickfix panel' })
+vim.keymap.set('n', '<Leader>qn', ':cn<CR>', { desc = '[Quickfix] Goto next error' })
+vim.keymap.set('n', '<Leader>qp', ':cp<CR>', { desc = '[Quickfix] Goto previous error' })
+
 -- Diagnostics configuration
 vim.diagnostic.config({
     virtual_text = {
