@@ -12,7 +12,7 @@ let maplocalleader = "\\"
 
 " Auto-indent
 set ai
-set formatoptions-=t
+"set formatoptions-=t
 
 " Show line numbers
 set number
@@ -42,6 +42,8 @@ set shiftwidth=4
 set softtabstop=4
 
 set textwidth=120
+autocmd FileType * setlocal textwidth=120
+autocmd FileType rst setlocal textwidth=80
 
 " Smarter searching
 set hlsearch

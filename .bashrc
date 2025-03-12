@@ -6,8 +6,8 @@ export PATH=${PATH}:~/.local
 
 # History options
 export HISTCONTROL=ignoreboth
-export HISTSIZE=5000
-export HISTFILESIZE=10000
+export HISTSIZE=50000
+export HISTFILESIZE=100000
 shopt -s histappend
 
 # Save history every time a command is run
