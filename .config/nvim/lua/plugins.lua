@@ -94,6 +94,14 @@ return {
     },
 
     --
+    -- Text editing
+    --
+    { 'echasnovski/mini.surround',
+        version = '*',
+        opts = {},
+    },
+
+    --
     -- Colorscheme
     --
     { "bluz71/vim-moonfly-colors",
@@ -227,6 +235,12 @@ return {
                     }
                 }
             }
+
+            require("lspconfig").rust_analyzer.setup{
+                settings = {
+                    ['rust-analyzer'] = {},
+                },
+            }
         end,
     },
 
@@ -238,7 +252,7 @@ return {
 
             configs.setup({
                 -- highlight = { enable = true },
-                ensure_installed = {"python", "vimdoc", "ebnf"},
+                ensure_installed = {"python", "vimdoc", "ebnf", "rust"},
             })
 
             vim.treesitter.language.register("ebnf", "lark")
