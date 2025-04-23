@@ -11,3 +11,5 @@
 	autoSetupRemote = true
 [fetch]
 	prune = true
+[core]
+	hooksPath = ~/.githooks

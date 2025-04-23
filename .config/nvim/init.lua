@@ -1,12 +1,12 @@
+-- Set python binary
+vim.g['python3_host_prog'] = '~/.pyenv/versions/3.13.3/bin/python3'
+
 -- Load base vim settings first
 vim.cmd([[
     set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath = &runtimepath
     source ~/.vimrc
 ]])
-
--- Set python binary
-vim.g['python3_host_prog'] = '~/.pyenv/versions/neovim/bin/python3'
 
 -- lazy.nvim plugin manager
 require("config.lazy")

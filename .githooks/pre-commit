@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+import os
+import sys
+import shutil
+import tempfile
+import subprocess
+import configparser
+
+try:
+    import pycodestyle
+except ImportError:
+    print('git pre-commit: pycodestyle not found, exiting')
+    sys.exit(0)
+
+def main():
+    lint_python()
+
+def lint_python():
+    gitdir = subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).decode('utf-8').strip()
+
+    filename = os.path.join(gitdir, 'setup.cfg')
+    if not os.path.exists(filename):
+        sys.exit(0)
+
+    cfg = configparser.ConfigParser()
+    cfg.read_file(open(filename))
+
+    try:
+        cfg.get('pycodestyle', 'select')
+    except (configparser.NoSectionError, KeyError):
+        print('git pre-commit: pycodestyle not configured, exiting')
+        sys.exit(0)
+
+    files = subprocess.check_output(['git', 'diff', '--cached', '--name-only']).decode('utf-8')
+    pyfiles = [file.strip() for file in files.split('\n') if file.strip().endswith('.py')]
+
+    if not pyfiles:
+        sys.exit(0)
+
+    if pyfiles:
+        tempdir = tempfile.mkdtemp()
+        for name in pyfiles:
+            filename = os.path.join(tempdir, name)
+            filepath = os.path.dirname(filename)
+
+            if not os.path.exists(filepath):
+                os.makedirs(filepath)
+            with open(filename, 'w') as f:
+                subprocess.check_call(['git', 'show', f':{name}'], stdout=f)
+
+        args = ['pycodestyle', f'--config={gitdir}/setup.cfg', '.']
+        proc = subprocess.run(args, cwd=tempdir, stdout=subprocess.PIPE)
+        output = proc.stdout
+
+        shutil.rmtree(tempdir)
+
+        if proc.returncode != 0:
+            print('PEP8 style violations have been detected.  Please fix them\n'
+                  'or force the commit with "git commit --no-verify".\n')
+            print(output.decode('utf-8'))
+            sys.exit(1)
+
+    sys.exit(0)
+
+if __name__ == '__main__':
+    main()

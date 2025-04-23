@@ -1,0 +1,42 @@
+#!/home/blackout/.pyenv/versions/synapse-2xx/bin/python3
+import os
+import sys
+import shutil
+import pathlib
+
+NULLREF = '0000000000000000000000000000000000000000'
+
+def worktree():
+    # src is the directory we're currently in
+    src = os.environ.get('PWD')
+    if src is None:
+        print('ERROR: Could not determine source directory from $PWD')
+        return -1
+
+    # dst is the new worktree directory
+    dst = pathlib.Path.cwd()
+
+    pyenv = pathlib.Path(src) / '.python-version'
+    if not pyenv.exists():
+        return 0
+
+    shutil.copy(pyenv, dst)
+    return 0
+
+def main(argv):
+    assert len(argv) == 3
+    phead, nhead, checkout = argv
+
+    # print(f'{phead=}, {nhead=}, {checkout=}, {cwd=}, {gitdir=}, {wtdir=}')
+
+    if phead == NULLREF:
+        return worktree()
+
+    return 0
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except Exception as exc:
+        print(f'ERROR: {exc}')
+        sys.exit(-1)
