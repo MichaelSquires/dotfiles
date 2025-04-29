@@ -14,9 +14,12 @@ shopt -s histappend
 export PROMPT_COMMAND='history -a'
 
 if command -v nvim &> /dev/null; then
+    function _nvim() {
+        PYENV_VERSION="neovim" nvim $*
+    }
     export EDITOR=nvim
-    alias vi='nvim'
-    alias vim='nvim'
+    alias vi='_nvim'
+    alias vim='_nvim'
 else
     export EDITOR=vim
     alias vi='vim'
@@ -32,6 +35,10 @@ alias ll='ls -la'
 # Random work aliases/functions
 alias storm='python -m synapse.tools.storm cell:///tmp/v/cortex'
 alias cortex='python -m synapse.servers.cortex /tmp/v/cortex'
+
+if test -S ~/.1password/agent.sock; then
+    export SSH_AUTH_SOCK=~/.1password/agent.sock
+fi
 
 # SSH agent coupling for reattaching tmux sessions
 if test -n "$TMUX" -a -n "$SSH_TTY" -a -n "$SSH_AUTH_SOCK"; then
