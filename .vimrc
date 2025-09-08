@@ -4,7 +4,7 @@ set visualbell
 set foldmethod=indent
 set nofen
 
-set autochdir
+"set autochdir
 set termguicolors
 
 let mapleader = " "

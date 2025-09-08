@@ -10,6 +10,8 @@ export HISTSIZE=50000
 export HISTFILESIZE=100000
 shopt -s histappend
 
+export PYTHONSTARTUP=~/.pythonrc
+
 # Save history every time a command is run
 export PROMPT_COMMAND='history -a'
 
@@ -33,8 +35,19 @@ alias ls='ls --color=auto'
 alias ll='ls -la'
 
 # Random work aliases/functions
-alias storm='python -m synapse.tools.storm cell:///tmp/v/cortex'
-alias cortex='python -m synapse.servers.cortex /tmp/v/cortex'
+function storm() {
+    BASEDIR=`basename $PWD`
+    mkdir -p /tmp/v/$BASEDIR
+    echo "Connecting to cell:///tmp/v/$BASEDIR"
+    python -m synapse.tools.storm cell:///tmp/v/$BASEDIR $@
+}
+
+function cortex() {
+    BASEDIR=`basename $PWD`
+    mkdir -p /tmp/v/$BASEDIR
+    echo "Listening on /tmp/v/$BASEDIR"
+    python -m synapse.servers.cortex --health-sysctl-checks=false --https=0 --telepath tcp://0.0.0.0:0 /tmp/v/$BASEDIR $@
+}
 
 if test -S ~/.1password/agent.sock; then
     export SSH_AUTH_SOCK=~/.1password/agent.sock
@@ -83,6 +96,18 @@ if [ -d $HOME/.pyenv ]; then
     command -v pyenv &> /dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+fi
+
+# uv config
+UV_DIR="${HOME}/.uv"
+if [ -d $UV_DIR ]; then
+    export UV_CACHE_DIR="${UV_DIR}/cache"
+    # export UV_CONFIG_FILE="${UV_DIR}/uv.toml"
+    export UV_PYTHON_INSTALL_DIR="${UV_DIR}/python/versions"
+    export UV_PYTHON_BIN_DIR="${UV_DIR}/python/bin"
+    export PATH="${UV_PYTHON_BIN_DIR}:${PATH}"
+    export UV_PYTHON_DOWNLOADS=manual
+    export UV_PYTHON_PREFERENCE=only-managed
 fi
 
 BREW=/home/linuxbrew/.linuxbrew/bin/brew

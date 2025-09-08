@@ -21,6 +21,8 @@ def worktree():
         return 0
 
     shutil.copy(pyenv, dst)
+    print(f'Copied {src} to {dst}:')
+    print(pyenv.read_text())
     return 0
 
 def main(argv):

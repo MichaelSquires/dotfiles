@@ -41,3 +41,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
             virtual_text = true,
         }
     )
+
+vim.filetype.add { extension = { rstorm = 'rst' } }

@@ -2,21 +2,7 @@ return {
     --
     -- User interface
     --
-    { "vim-airline/vim-airline",
-        enabled = false,
-        init = function()
-            vim.g['airline_theme'] = 'simple'
-            vim.g['airline#extensions#tabline#enabled'] = 1
-            vim.g['airline#extensions#tabline#formatter'] = 'unique_tail_improved'
-            vim.g['airline_section_z'] = 'POS=%l/%L,%c'
-        end,
-        dependencies = {
-            'vim-airline/vim-airline-themes',
-        },
-    },
-
     { 'nvim-lualine/lualine.nvim',
-        --enabled = false,
         opts = {
             sections = {
                 lualine_b = {'diff', 'diagnostics'},
@@ -170,57 +156,6 @@ return {
         },
     },
 
-    { "junegunn/fzf",
-        enabled = false,
-        lazy = false,
-        name = "fzf",
-        build = "./install --bin",
-        dependencies = {
-            'junegunn/fzf.vim',
-        },
-
-        keys = {
-            { '<Leader>.',
-                ':History<CR>',
-                desc = "[Fzf] Open MRU file"
-            },
-            { '<Leader>o',
-                ':Files<CR>',
-                desc = "[Fzf] Open file"
-            },
-            { '<Leader>o',
-                ':Files',
-                desc = "[Fzf] Open file in specified directory"
-            },
-            { '<Leader>/',
-                ':Rg<CR>',
-                desc = "[Fzf] Search files"
-            },
-        },
-    },
-
-    { 'ctrlpvim/ctrlp.vim',
-        enabled = false,
-        init = function()
-            vim.g['ctrlp_working_path_mode'] = 0
-            vim.g['ctrlp_by_filename'] = 1
-            vim.g['ctrlp_cmd'] = 'CtrlPMRU'
-            vim.g['ctrlp_extensions'] = { 'dir' }
-        end,
-    },
-
-    { "ibhagwan/fzf-lua",
-        enabled = false,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {},
-        keys = {
-            { '',
-                ':FzfLua files<CR>',
-                desc = "[FzfLua] Open file"
-            },
-        },
-    },
-
     --
     -- Language support
     --
@@ -254,9 +189,6 @@ return {
                 -- highlight = { enable = true },
                 ensure_installed = {"python", "vimdoc", "ebnf", "rust"},
             })
-
-            vim.treesitter.language.register("ebnf", "lark")
-            vim.filetype.add { extension = { lark = 'ebnf' } }
         end,
 
         dependencies = {
@@ -277,6 +209,7 @@ return {
             -- For some reason, the ftdetect part of this plugin conflicts with
             -- vim-polyglot. I like the functionality from both so just do the
             -- autocommand here manually.
+            vim.filetype.add { extension = { storm = 'storm' } }
             vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
                 pattern = '*.storm',
                 callback = function() vim.bo.filetype = 'storm' end,
@@ -295,6 +228,20 @@ return {
         },
         build = ':StormUpdate',
         branch = 'master',
+    },
+
+    -- Lark
+    { 'lark-parser/vim-lark-syntax',
+        lazy = false,
+        ft = 'lark',
+        event = 'BufEnter *.lark',
+        config = function()
+            vim.filetype.add { extension = { lark = 'lark' } }
+            vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+                pattern = '*.lark',
+                callback = function() vim.bo.filetype = 'lark' end,
+            })
+        end,
     },
 
     --

@@ -3,3 +3,5 @@ pynvim
 debugpy
 pycodestyle
 python-lsp-server
+flake8
+pyflakes
