@@ -1,3 +1,35 @@
 import pprint
 
 pp = pprint.pprint
+
+'''
+import sys
+import datetime
+
+def utcnow():
+    return datetime.datetime.now(datetime.timezone.utc)
+
+
+last = None
+
+
+def audit_imports(event, *args):
+    if event != 'import':
+        return
+
+    module, *_ = args
+
+    took = 0
+    now = utcnow()
+
+    global last
+    if last is not None:
+        took = (now - last).microseconds
+
+    last = now
+
+    print(f'{took}: {module[0]}')
+
+
+sys.addaudithook(audit_imports)
+'''

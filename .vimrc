@@ -41,8 +41,8 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
-set textwidth=120
-autocmd FileType * setlocal textwidth=120
+set textwidth=160
+autocmd FileType * setlocal textwidth=160
 autocmd FileType rst setlocal textwidth=80
 
 " Smarter searching

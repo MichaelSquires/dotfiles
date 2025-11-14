@@ -4,6 +4,8 @@ git fetch -p
 GONE=`git branch -vv | cut -c "3-" | awk '/: gone]/{print $1}'`
 if [ -n "${GONE}" ]
 then
+    echo "Pruning worktrees"
+    git worktree prune
     echo "Deleting tracking branches: ${GONE}"
     git branch -D ${GONE}
 else

@@ -58,3 +58,6 @@ import = [
     "~/.config/alacritty/moonfly.toml"
     #"~/.config/alacritty/themes/google.toml"
 ]
+
+[cursor]
+style = { shape = "Block", blinking = "On" }

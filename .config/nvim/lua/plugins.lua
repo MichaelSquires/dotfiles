@@ -1,5 +1,11 @@
 return {
     --
+    -- Dependencies
+    --
+
+    { 'nvim-tree/nvim-web-devicons' },
+
+    --
     -- User interface
     --
     { 'nvim-lualine/lualine.nvim',
@@ -28,8 +34,6 @@ return {
                 'lazy',
             },
         },
-
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
     { 'luukvbaal/statuscol.nvim',
@@ -39,9 +43,6 @@ return {
 
     { "folke/which-key.nvim",
         event = "VeryLazy",
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-        },
 
         opts = {},
 
@@ -128,30 +129,11 @@ return {
     --
     -- File management
     --
-    { "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
-
+    { "folke/snacks.nvim",
         keys = {
-                { '',
-                    ':Neotree position=float reveal toggle<CR>',
-                    desc = "[File] Toggle file tree"
-                },
-        },
-
-        opts = {
-            event_handlers = {
-                { -- Auto-close file browser when a file is opened
-                    event = "file_open_requested",
-                    handler = function()
-                        -- auto close
-                        require("neo-tree.command").execute({ action = "close" })
-                    end
-                },
+            { '',
+                ':lua Snacks.picker("explorer", { auto_close = true, follow_file = true })<CR>',
+                desc = "[File] Toggle file tree"
             },
         },
     },
@@ -161,7 +143,7 @@ return {
     --
     { "neovim/nvim-lspconfig",
         config = function()
-            require("lspconfig").pylsp.setup{
+            vim.lsp.config('pylsp', {
                 settings = {
                     plugins = {
                         flake8 = {
@@ -169,13 +151,16 @@ return {
                         }
                     }
                 }
-            }
+            })
 
-            require("lspconfig").rust_analyzer.setup{
+            vim.lsp.config('rust_analyzer', {
                 settings = {
                     ['rust-analyzer'] = {},
                 },
-            }
+            })
+
+            vim.lsp.enable('pylsp')
+            vim.lsp.enable('rust_analyzer')
         end,
     },
 
@@ -220,6 +205,8 @@ return {
     { 'rakuy0/stormgls',
         --lazy = false,
         --enabled = false,
+        --dir = '~/checkouts/stormgls/master',
+        --branch = 'master',
         ft = 'storm',
         event = 'BufEnter *.storm',
         dependencies = {
@@ -227,7 +214,6 @@ return {
             'neovim/nvim-lspconfig',
         },
         build = ':StormUpdate',
-        branch = 'master',
     },
 
     -- Lark

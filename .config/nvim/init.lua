@@ -1,5 +1,5 @@
 -- Set python binary
-vim.g['python3_host_prog'] = '~/.pyenv/versions/3.13.3/bin/python3'
+vim.g['python3_host_prog'] = '~/.pyenv/versions/neovim/bin/python3'
 
 -- Load base vim settings first
 vim.cmd([[
@@ -27,10 +27,14 @@ vim.diagnostic.config({
         prefix = '●', -- Could be '■', '▎', 'x'
     },
 
+    --virtual_lines = {
+    --    current_line = true,
+    --},
+
     severity_sort = true,
 
     float = {
-        source = true,  -- Or "if_many"
+        source = true,
     },
 })
 
