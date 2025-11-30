@@ -12,14 +12,47 @@ shopt -s histappend
 
 export PYTHONSTARTUP=~/.pythonrc
 
+#set -x
+
 # Save history every time a command is run
 export PROMPT_COMMAND='history -a'
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    BREW=/opt/homebrew/bin/brew
-else
-    BREW=/home/linuxbrew/.linuxbrew/bin/brew
+case "$OSTYPE" in
+    darwin*)
+        BREW=/opt/homebrew/bin/brew
+        ONEP_SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+        ;;
+    linux*)
+        BREW=/home/linuxbrew/.linuxbrew/bin/brew
+        ONEP_SSH_AUTH_SOCK=~/.1password/agent.sock
+        ;;
+    *)
+        echo "UNKNOWN OS: $OSTYPE"
+        ;;
+esac
+
+# Prefer the 1password ssh agent, then the system ssh agent
+if [ -n "$ONEP_SSH_AUTH_SOCK" -a -S "$ONEP_SSH_AUTH_SOCK" ]; then
+    ln -sf "$ONEP_SSH_AUTH_SOCK" ~/.ssh/local_auth_sock
+elif [ -n "$SSH_AUTH_SOCK" -a -S $SSH_AUTH_SOCK ]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/local_auth_sock
 fi
+
+function fixssh() {
+    if [ -n "$SSH_TTY" -a -S ~/.ssh/remote_auth_sock ]; then
+        # We're in a remote session, use the remote auth sock
+        ln -sf ~/.ssh/remote_auth_sock ~/.ssh/ssh_auth_sock
+    elif [ -S ~/.ssh/local_auth_sock ]; then
+        # We're local, use the local auth sock
+        ln -sf ~/.ssh/local_auth_sock ~/.ssh/ssh_auth_sock
+    fi
+}
+
+fixssh
+
+# This always points to the same place
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+
 if [ -e $BREW ]; then
     eval "$($BREW shellenv)"
 else
@@ -59,15 +92,6 @@ function cortex() {
     echo "Listening on /tmp/v/$BASEDIR"
     python -m synapse.servers.cortex --health-sysctl-checks=false --https=0 --telepath tcp://0.0.0.0:0 /tmp/v/$BASEDIR $@
 }
-
-if test -S ~/.1password/agent.sock; then
-    export SSH_AUTH_SOCK=~/.1password/agent.sock
-fi
-
-# SSH agent coupling for reattaching tmux sessions
-if test -n "$TMUX" -a -n "$SSH_TTY" -a -n "$SSH_AUTH_SOCK"; then
-    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-fi
 
 function changelog() {
     if [ $# -ne 1 ]; then

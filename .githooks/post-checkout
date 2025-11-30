@@ -1,4 +1,4 @@
-#!/home/blackout/.pyenv/versions/synapse-2xx/bin/python3
+#!python3
 import os
 import sys
 import shutil
