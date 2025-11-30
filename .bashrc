@@ -15,6 +15,17 @@ export PYTHONSTARTUP=~/.pythonrc
 # Save history every time a command is run
 export PROMPT_COMMAND='history -a'
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    BREW=/opt/homebrew/bin/brew
+else
+    BREW=/home/linuxbrew/.linuxbrew/bin/brew
+fi
+if [ -e $BREW ]; then
+    eval "$($BREW shellenv)"
+else
+    echo "brew not found."
+fi
+
 if command -v nvim &> /dev/null; then
     function _nvim() {
         PYENV_VERSION="neovim" nvim $*
@@ -110,12 +121,6 @@ if [ -d $UV_DIR ]; then
     export UV_PYTHON_PREFERENCE=only-managed
 fi
 
-BREW=/home/linuxbrew/.linuxbrew/bin/brew
-if [ -e $BREW ]; then
-    eval "$($BREW shellenv)"
-else
-    echo "Linux brew not found."
-fi
 
 export NVM_DIR="$HOME/.config/nvm"
 if [ -e $NVM_DIR ]; then
