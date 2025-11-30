@@ -31,11 +31,20 @@ case "$OSTYPE" in
         ;;
 esac
 
-# Prefer the 1password ssh agent, then the system ssh agent
+# If we're not coming in from a remote ssh and there's a local sock, set it
+# This mostly handles system ssh agents like keychain on mac or linux
+if [ -z "$SSH_TTY" -a -n "$SSH_AUTH_SOCK" -a -S $SSH_AUTH_SOCK ]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/local_auth_sock
+fi
+
+# If the 1password agent is running, use that instead
 if [ -n "$ONEP_SSH_AUTH_SOCK" -a -S "$ONEP_SSH_AUTH_SOCK" ]; then
     ln -sf "$ONEP_SSH_AUTH_SOCK" ~/.ssh/local_auth_sock
-elif [ -n "$SSH_AUTH_SOCK" -a -S $SSH_AUTH_SOCK ]; then
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/local_auth_sock
+fi
+
+# If we're in a remote ssh session, and the previous ssh sock is invalid, update it
+if [ -n "$SSH_TTY" -a -n "$SSH_AUTH_SOCK" -a ! -S ~/.ssh/remote_auth_sock -a -S $SSH_AUTH_SOCK ] ; then
+    ln -sf $SSH_AUTH_SOCK ~/.ssh/remote_auth_sock
 fi
 
 function fixssh() {
